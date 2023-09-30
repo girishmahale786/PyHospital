@@ -1,0 +1,105 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+{% if request.session.doctor_id == None %}
+Select Doctor
+{% else %}
+Book Appointment
+{% endif %}
+{% endblock title %}
+
+{% block body %}
+{% if request.session.doctor_id == None %}
+<section class="text-gray-400 bg-gray-900 body-font">
+    <div class="container px-5 py-5 mx-auto">
+        <div class="flex flex-col text-center w-full mb-16">
+            <h1 class="text-2xl font-medium title-font mb-4 text-white">Select Doctor</h1>
+            <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Please select your preferred doctor to book an appointment!</p>
+        </div>
+        <div class="flex flex-wrap -m-4">
+            {% for doctor in doctors %}
+            <div class="p-4 lg:w-1/2">
+                <div
+                    class="h-full flex sm:flex-row flex-col items-center sm:justify-start justify-center text-center sm:text-left border-2 border-green-500 rounded-xl p-5">
+                    <img alt="Profile Picture"
+                        class="flex-shrink-0 rounded-full w-44 h-44 object-cover object-center sm:mb-0 mb-4 mr-4"
+                        src="/media/{{doctor.profile_picture}}">
+                    <div class="flex-grow sm:pl-5 border-l-2 border-gray-500">
+                        <h2 class="title-font font-medium text-lg text-white">{{doctor.user.first_name}}
+                            {{doctor.user.last_name}}</h2>
+                        <h3 class="text-gray-500 mb-3 uppercase">{{doctor.designation}}</h3>
+                        <p class="mb-4">DIY tote bag drinking vinegar cronut adaptogen squid fanny pack vaporware.</p>
+                        <form action="/book-appointment" method="post">
+                            {% csrf_token %}
+                            <button type="submit" name="btn-doctor" value="{{doctor.user.id}}">
+                                <span class="text-green-400 inline-flex items-center mb-3">
+                                    Book Appointment
+                                    <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
+                                        fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M5 12h14"></path>
+                                        <path d="M12 5l7 7-7 7"></path>
+                                    </svg>
+                                </span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% else %}
+<section class="text-gray-400 bg-gray-900 body-font relative">
+    <div class="container px-5 py-12 mx-auto">
+        <div class="flex flex-col text-center w-full mb-6">
+            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">Book Apppointment</h1>
+            <p class="text-xl text-gray-600 text-center">Book an Apppointment!</p>
+        </div>
+        <form action="/book-appointment" method="POST" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+            <div class="lg:w-1/2 md:w-2/3 mx-auto">
+                <div class="text-sm my-2 text-red-500 text-center">
+                    {{ form.non_field_errors }}
+                </div>
+                <div class="flex flex-wrap -m-2">
+                    <div class="p-2 w-full">
+                        <div class="relative">
+                            <label for="{{ form.required_speciality.id_for_label }}"
+                                class="leading-7 text-sm text-gray-400">Required Speciality</label>
+                            {{ form.required_speciality }}
+                            <p class="text-xs mt-2 text-red-500">{{ form.required_speciality.errors.as_text }}</p>
+                        </div>
+                    </div>
+                    <div class="p-2 w-full">
+                        <div class="relative">
+                            <label for="{{ form.date.id_for_label }}" class="leading-7 text-sm text-gray-400">Appointment Date</label>
+                            {{ form.date }}
+                            <p class="text-xs mt-2 text-red-500">{{ form.date.errors.as_text }}</p>
+                        </div>
+                    </div>
+                    <div class="p-2 w-full">
+                        <div class="relative">
+                            <label for="{{ form.start_time.id_for_label }}"
+                                class="leading-7 text-sm text-gray-400">
+                                Start Time
+                            </label>
+                            {{ form.start_time }}
+                            <p class="text-xs mt-2 text-red-500">{{ form.start_time.errors.as_text }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-2 pt-6 w-full">
+                    <button type="submit"
+                        class="flex mx-auto text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">
+                        Confirm Apppointment
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    </div>
+</section>
+{% endif %}
+{% endblock body %}

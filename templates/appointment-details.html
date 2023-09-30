@@ -1,0 +1,68 @@
+{% extends 'layout.html' %}
+
+{% block title %}Apppointment Details{% endblock title %}
+
+{% block body %}
+<section class="text-gray-400 bg-gray-900 body-font relative">
+    <div class="container px-5 py-12 mx-auto">
+        <div class="flex flex-col text-center w-full mb-6">
+            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">Apppointment Details</h1>
+            <p class="text-xl text-gray-600 text-center">Your Apppointment Details!</p>
+        </div>
+        <div class="lg:w-1/2 md:w-2/3 mx-auto">
+            <div class="flex flex-wrap -m-2">
+                <div class="p-2 w-full">
+                    <div class="relative">
+                        <label for="doctor" class="leading-7 text-sm text-gray-400">Doctor's Name</label>
+                        <input type="text" id="doctor" name="doctor" value="{{doctor.first_name}} {{doctor.last_name}}" disabled
+                            class="cursor-not-allowed w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-green-500 focus:bg-gray-900 focus:ring-2 focus:ring-green-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                    </div>
+                </div>
+                <div class="p-2 w-full">
+                    <div class="relative">
+                        <label for="required_speciality" class="leading-7 text-sm text-gray-400">Required Speciality</label>
+                        <input type="text" id="required_speciality" name="required_speciality" value="{{required_speciality}}" disabled
+                            class="cursor-not-allowed w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-green-500 focus:bg-gray-900 focus:ring-2 focus:ring-green-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                    </div>
+                </div>
+                <div class="p-2 w-full">
+                    <div class="relative">
+                        <label for="date" class="leading-7 text-sm text-gray-400">Date</label>
+                        <input type="date" id="date" name="date" value="{{date}}" disabled
+                            class="cursor-not-allowed w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-green-500 focus:bg-gray-900 focus:ring-2 focus:ring-green-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                    </div>
+                </div>
+                <div class="p-2 w-full">
+                    <div class="relative">
+                        <label for="start_time" class="leading-7 text-sm text-gray-400">Start Time</label>
+                        <input type="time" id="start_time" name="start_time" value="{{start_time}}" disabled
+                            class="cursor-not-allowed w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-green-500 focus:bg-gray-900 focus:ring-2 focus:ring-green-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                    </div>
+                </div>
+                <div class="p-2 w-full">
+                    <div class="relative">
+                        <label for="end_time" class="leading-7 text-sm text-gray-400">End Time</label>
+                        <input type="time" id="end_time" name="end_time" value="{{end_time}}" disabled
+                            class="cursor-not-allowed w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-green-500 focus:bg-gray-900 focus:ring-2 focus:ring-green-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                    </div>
+                </div>
+                <div class="p-2 w-full">
+                    <div class="relative">
+                        <label for="calender" class="leading-7 text-sm text-gray-400">Calender Details</label>
+                        {% if event is not None %}
+                        <a href="{{event}}" target="_blank">
+                            <input type="text" id="calender" name="calender" value="{{event}}" disabled
+                                class="hover:text-green-500 cursor-pointer w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-green-500 focus:bg-gray-900 focus:ring-2 focus:ring-green-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                        </a>
+                        {% else %}
+                        <input type="text" id="calender" name="calender" value="No Calender Details Found" disabled
+                                class="cursor-not-allowed w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-green-500 focus:bg-gray-900 focus:ring-2 focus:ring-green-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+{% endblock body %}

@@ -1,0 +1,142 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required Meta Tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>PyHospital | {% block title %}{% endblock title %} </title>
+
+    <!-- Custom CSS -->
+    {% block css %}{% endblock css %}
+</head>
+
+<body>
+    <main class="flex flex-wrap flex-col text-gray-400 bg-gray-900 body-font min-h-[100vh] justify-between">
+        <!-- Header -->
+        {% if user.is_authenticated %}
+        <header class="text-gray-400 bg-gray-900 body-font">
+            <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+                <a class="flex title-font font-medium items-center text-white mb-4 md:mb-0">
+                    <img src="{% static 'PyHospital_Logo.png' %}" class="w-10 h-10" alt="Logo">
+                    <span class="ml-3 text-xl">PyHospital</span>
+                </a>
+                <nav
+                    class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-700 flex flex-wrap items-center text-base justify-center">
+                    {% if user.employee.designation == "Doctor" %}
+                    <a href="/doctor-dashboard" class="nav-link mr-5 hover:text-white cursor-pointer">Dashboard</a>
+                    <a href="/my-posts" class="nav-link mr-5 hover:text-white cursor-pointer">My Posts</a>
+                    <a href="/drafts" class="nav-link mr-5 hover:text-white cursor-pointer">Drafts</a>
+                    {% else %}
+                    <a href="/patient-dashboard" class="nav-link mr-5 hover:text-white cursor-pointer">Dashboard</a>
+                    <a href="/book-appointment" class="nav-link mr-5 hover:text-white cursor-pointer">Book Appointment</a>
+                    {% endif %}
+                    <a href="/blog" class="nav-link mr-5 hover:text-white cursor-pointer">Blog</a>
+                </nav>
+                <a href="/signout">
+                    <button
+                        class="mx-2 inline-flex items-center bg-red-500 border-0 py-1 px-3 focus:outline-none hover:bg-red-600 rounded text-white mt-4 md:mt-0">
+                        Sign Out
+                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+                            <path d="M5 12h14M12 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </a>
+            </div>
+        </header>
+        {% else %}
+        <header class="text-gray-400 bg-gray-900 body-font">
+            <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row justify-center">
+                <a class="flex justify-center lg:w-1/5 title-font font-medium items-center text-white">
+                    <img src="{% static 'PyHospital_Logo.png' %}" class="w-10 h-10" alt="Logo">
+                    <span class="ml-3 text-xl xl:block">PyHospital</span>
+                </a>
+            </div>
+        </header>
+        {% endif %}
+
+
+        <!-- Main Content -->
+        <main>
+            {% if messages %}
+            <section class="text-gray-400 bg-gray-900 body-font py-2">
+                {% for message in messages %}
+                <div {% if message.tags %}
+                    class="alert bg-{{message.tags}}-100 border border-{{message.tags}}-400 text-{{message.tags}}-700 px-4 py-3 my-2 rounded relative w-full md:w-3/4 mx-auto"
+                    {% endif %} role="alert">
+                    <strong class="font-bold">
+                        {% if message.tags == 'green' %}
+                        Success!
+                        {% elif message.tags == 'red' %}
+                        Error!
+                        {% endif %}
+                    </strong>
+                    <span class="block sm:inline">{{ message }}</span>
+                    <span class="absolute top-0 bottom-0 right-0 px-4 py-3 alert-del">
+                        <svg class="fill-current h-6 w-6 text-{{message.tags}}}-500" role="button"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <title>Close</title>
+                            <path
+                                d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+                        </svg>
+                    </span>
+                </div>
+                {% endfor %}
+            </section>
+            {% endif %}
+
+
+            {% block body %}
+            {% endblock body %}
+        </main>
+
+        <!-- Footer -->
+        <footer class="text-gray-400 bg-gray-900 body-font">
+            <div class="container px-5 py-8 mx-auto flex items-center justify-center sm:flex-row flex-col">
+                <a class="flex title-font font-medium items-center justify-center text-white">
+                    <img src="{% static 'PyHospital_Logo.png' %}" class="w-10 h-10" alt="Logo">
+                    <span class="ml-3 text-xl">PyHospital</span>
+                </a>
+                <p
+                    class="text-sm text-gray-400 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-800 sm:py-2 sm:mt-0 mt-4 text-center">
+                    &copy; 2022 PyHospital | All Rights Reserved
+                </p>
+            </div>
+        </footer>
+    </main>
+
+    <!-- jQuery-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+
+    <!-- Custom JS -->
+    <script>
+        $(".nav-link .text-white").removeClass('text-white');
+        $('a[href="' + location.pathname + '"]').addClass('text-white');
+        var alert_del = document.querySelectorAll('.alert-del');
+        alert_del.forEach((e) =>
+            e.addEventListener('click', function () {
+                e.parentElement.classList.add('hidden');
+            })
+        );
+        $(document).ready(
+            setTimeout(() => {
+                var alerts = document.getElementsByClassName("alert");
+                for (var i = 0, len = alerts.length; i < len; i++) {
+                    alerts[i].classList.add('hidden');
+                }
+            }, 7000));
+    </script>
+    {% block js %}
+    {% endblock js %}
+</body>
+
+</html>

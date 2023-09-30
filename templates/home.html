@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock title %}
+
+{% block body %}
+<section class="text-gray-400 bg-gray-900 body-font">
+    <div class="container px-5 py-24 mx-auto">
+        <div class="flex flex-wrap -mx-4 -mb-10 text-center justify-center">
+            <div class="sm:w-1/2 mb-10 px-4">
+                <div class="rounded-lg h-64 overflow-hidden">
+                    <img alt="content" class="object-cover object-center h-full w-full" src="{% static 'Doctor.jpg' %}">
+                </div>
+                <h2 class="title-font text-2xl font-medium text-white mt-6 mb-3">Doctor's Dashboard</h2>
+                <p class="leading-relaxed text-base">
+                    Sign In or Sign Up to go to the Doctor's Dashboard...!
+                </p>
+                <div class="flex flex-wrap justify-center">
+                    <a href="/doctor-signin">
+                        <button
+                            class="flex mx-4 mt-6 text-white bg-green-500 border-0 py-2 px-5 focus:outline-none hover:bg-green-600 rounded">
+                            Sign In
+                        </button>
+                    </a>
+                    <a href="/doctor-signup">
+                        <button
+                            class="flex mx-4 mt-6 text-white bg-green-500 border-0 py-2 px-5 focus:outline-none hover:bg-green-600 rounded">
+                            Sign Up
+                        </button>
+                    </a>
+                </div>
+            </div>
+            <div class="sm:w-1/2 mb-10 px-4">
+                <div class="rounded-lg h-64 overflow-hidden">
+                    <img alt="content" class="object-cover object-center h-full w-full"
+                        src="{% static 'Patient.jpg' %}">
+                </div>
+                <h2 class="title-font text-2xl font-medium text-white mt-6 mb-3">Patient's Dashboard</h2>
+                <p class="leading-relaxed text-base">
+                    Sign In or Sign Up to go to the Patient's Dashboard...!
+                </p>
+                <div class="flex flex-wrap justify-center">
+                    <a href="/patient-signin">
+                        <button
+                            class="flex mx-4 mt-6 text-white bg-green-500 border-0 py-2 px-5 focus:outline-none hover:bg-green-600 rounded">
+                            Sign In
+                        </button>
+                    </a>
+                    <a href="/patient-signup">
+                        <button
+                            class="flex mx-4 mt-6 text-white bg-green-500 border-0 py-2 px-5 focus:outline-none hover:bg-green-600 rounded">
+                            Sign Up
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock body %}
+

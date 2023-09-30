@@ -1,0 +1,97 @@
+{% extends 'layout.html' %}
+
+{% block title %}Edit Post{% endblock title %}
+{% block body %}
+<section class="text-gray-400 bg-gray-900 body-font relative">
+    <div class="container px-5 py-12 mx-auto">
+        <div class="flex flex-col text-center w-full mb-6">
+            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-white">Edit Post</h1>
+            <p class="text-xl text-gray-600 text-center">Update a Post here!</p>
+        </div>
+        <form action="/edit-post/{{slug}}" method="POST" enctype="multipart/form-data" novalidate>
+            {% csrf_token %}
+            <div class="lg:w-1/2 md:w-2/3 mx-auto">
+                <div class="text-sm my-2 text-red-500 text-center">
+                    {{ form.non_field_errors }}
+                </div>
+                <div class="flex flex-wrap -m-2">
+                    <div class="p-2 w-full">
+                        <div class="relative">
+                            <label for="{{ form.title.id_for_label }}"
+                                class="leading-7 text-sm text-gray-400">Title</label>
+                            {{ form.title }}
+                            <p class="text-xs mt-2 text-red-500">{{ form.title.errors.as_text }}</p>
+                        </div>
+                    </div>
+                    <div class="p-2 w-full">
+                        <div class="relative">
+                            <label for="{{ form.category.id_for_label }}"
+                                class="leading-7 text-sm text-gray-400">Category</label>
+                            {{ form.category }}
+                            <p class="text-xs mt-2 text-red-500">{{ form.category.errors.as_text }}</p>
+                        </div>
+                    </div>
+                    <div class="p-2 w-full">
+                        <div class="relative">
+                            <label for="{{ form.image.id_for_label }}" class="leading-7 text-sm text-gray-400">
+                                Upload Image
+                            </label>
+                            {{ form.image }}
+                            <p class="text-xs mt-2 text-red-500">{{ form.image.errors.as_text }}</p>
+                        </div>
+                    </div>
+                    <div class="p-2 w-full">
+                        <div class="relative">
+                            <label for="{{ form.summary.id_for_label }}" class="leading-7 text-sm text-gray-400">Summary</label>
+                            {{ form.summary }}
+                            <p class="text-xs mt-2 text-red-500">{{ form.summary.errors.as_text }}</p>
+                        </div>
+                    </div>
+                    <div class="p-2 w-full">
+                        <div class="relative">
+                            <label for="{{ form.content.id_for_label }}" class="leading-7 text-sm text-gray-400">Content</label>
+                            {{ form.content }}
+                            <p class="text-xs mt-2 text-red-500">{{ form.content.errors.as_text }}</p>
+                        </div>
+                    </div>
+                    <div class="p-2 w-full">
+                        <div class="relative">
+                            <label class="inline-flex items-center">
+                                {{ form.draft }}
+                                <label for="{{ form.draft.id_for_label }}" class="ml-2 leading-7 text-sm text-gray-400">Mark as Draft</label>
+                            </label>
+                            <p class="text-xs mt-2 text-red-500">{{ form.draft.errors.as_text }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between">
+                    <div class="p-2 pt-6 w-1/2">
+                        <button type="submit"
+                            class="flex mx-auto text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg">
+                            Update Post
+                        </button>
+                    </div>
+                    <div class="p-2 pt-6 w-1/2">
+                        <a href="/delete-post/{{slug}}">
+                            <button type="button"
+                                class="flex mx-auto text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg">
+                                Delete Post
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    </div>
+</section>
+{% endblock body %}
+
+{% block js %}
+<script>
+    $("#id_image").addClass("w-full bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-green-500 focus:bg-gray-900 focus:ring-2 focus:ring-green-900 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out");
+    $("#id_summary").addClass("h-40 resize-none");
+    $("#id_content").addClass("h-80");
+    $("#id_draft").addClass("w-6 h-6");
+</script>
+{% endblock js %}
